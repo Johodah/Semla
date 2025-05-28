@@ -62,26 +62,109 @@
             font-size: 0.9em;
         }
 
+        .rating {
+            color: #FFD700;
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .rate-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .rate-button:hover {
+            background-color: #45a049;
+        }
+
+        .messages {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            padding: 10px;
+        }
+
+        .message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .message.error { 
+            background: #ffebee; 
+            color: #c62828;
+        }
+
+        .message.success { 
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .top-semlor {
+            backgroud: #fff3e0;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+        }
+
         h1 {
             text-align: center;
             color: #333;
             margin-bottom: 30px;
         }
-    </style>
+        </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Semlor i Sverige</h1>
-    <div class="semla-grid">
-        {% for semla in semlor %}
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="message {{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <h1>Topplista - Bästa Semlorna</h1>
+    <div class="top-semlor">
+        {% for semla in top_semlor %}
             <div class="semla-card">
                 <img src="{{ semla.picture.url }}" alt="{{ semla.bakery }}">
                 <h2>{{ semla.bakery }}</h2>
                 <p>{{ semla.city }}</p>
+                <div class="rating">★ {{ semla.avg_rating|floatformat:1 }}/5</div>
                 <p>{{ semla.price }} kr</p>
                 <p>{{ semla.kind }}</p>
                 {% if semla.vegan %}
                     <span class="vegan-badge">Vegansk</span>
                 {% endif %}
+                <br>
+                <a href="{% url 'rate_semla' semla.id %}" class="rate-button">Betygsätt</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <h1>Alla Semlor</h1>
+    <div class="semla-grid">
+        {% for semla in all_semlor %}
+            <div class="semla-card">
+                <img src="{{ semla.picture.url }}" alt="{{ semla.bakery }}">
+                <h2>{{ semla.bakery }}</h2>
+                <p>{{ semla.city }}</p>
+                <div class="rating">★ {{ semla.average_rating|floatformat:1 }}/5</div>
+                <p>{{ semla.price }} kr</p>
+                <p>{{ semla.kind }}</p>
+                {% if semla.vegan %}
+                    <span class="vegan-badge">Vegansk</span>
+                {% endif %}
+                <br>
+                <a href="{% url 'rate_semla' semla.id %}" class="rate-button">Betygsätt</a>
             </div>
         {% endfor %}
     </div>

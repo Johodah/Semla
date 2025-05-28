@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models import Avg
 from django.contrib import messages
+from django.utils import timezone
 from .models import Semla, Rating
 from .forms import RatingForm
 
@@ -29,14 +30,8 @@ def add_rating(request, semla_id):
             rating.ip_address = request.META.get('REMOTE_ADDR')
             rating.user_agent = request.META.get('HTTP_USER_AGENT', '')
 
-            # Check daily limit
-            today_ratings = Rating.objects.filter(
-                ip_address=rating.ip_address,
-                user_agent=rating.user_agent,
-                created_at__date=rating.created_at.date()
-            ).count()
-
-            if today_ratings >= 5:
+            # Check daily limit using the model method
+            if not Rating.can_rate(rating.ip_address, rating.user_agent):
                 messages.error(request, 'Du har redan lagt till 5 betyg idag.')
                 return redirect('home')
 
@@ -46,7 +41,6 @@ def add_rating(request, semla_id):
             except:
                 messages.error(
                     request, 'Du har redan betygsatt denna semla idag.')
-
             return redirect('home')
     else:
         form = RatingForm()

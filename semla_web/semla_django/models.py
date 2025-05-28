@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils import timezone
 
 
 class Semla(models.Model):
@@ -29,8 +31,17 @@ class Rating(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['ip_address', 'user_agent',
-                        'semla', 'created_at__date'],
-                name='unique_rating_per_day'
+                fields=['ip_address', 'user_agent', 'semla'],
+                name='unique_rating_per_semla'
             )
         ]
+
+    @classmethod
+    def can_rate(cls, ip_address, user_agent):
+        today = timezone.now().date()
+        count = cls.objects.filter(
+            ip_address=ip_address,
+            user_agent=user_agent,
+            created_at__date=today
+        ).count()
+        return count < 5
