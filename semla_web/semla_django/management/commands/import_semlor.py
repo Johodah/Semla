@@ -2,6 +2,7 @@ import csv
 from django.core.management.base import BaseCommand
 from semla_django.models import Semla
 
+
 class Command(BaseCommand):
     help = 'Importerar semlor från CSV-fil'
 
@@ -13,7 +14,7 @@ class Command(BaseCommand):
                 Semla.objects.create(
                     bakery=row['Bakery'],
                     city=row['City'],
-                    picture=f"produkter/{row['Picture']}",
+                    picture=row['Picture'],
                     vegan=(row['Vegan'].strip().upper() == 'T'),
                     price=price,
                     kind=row['Kind']

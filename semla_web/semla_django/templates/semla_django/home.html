@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Semlor i Sverige</title>
+    <style>
+        .semla-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .semla-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .semla-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        .vegan-badge {
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Semlor i Sverige</h1>
+    <div class="semla-grid">
+        {% for semla in semlor %}
+            <div class="semla-card">
+                <img src="{{ semla.picture.url }}" alt="{{ semla.bakery }}">
+                <h2>{{ semla.bakery }}</h2>
+                <p>{{ semla.city }}</p>
+                <p>{{ semla.price }} kr</p>
+                <p>{{ semla.kind }}</p>
+                {% if semla.vegan %}
+                    <span class="vegan-badge">Vegansk</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

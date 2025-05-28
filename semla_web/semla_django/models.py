@@ -4,7 +4,7 @@ from django.db import models
 class Semla(models.Model):
     bakery = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
-    picture = models.ImageField(upload_to='produkter/')
+    picture = models.ImageField(upload_to='')
     vegan = models.BooleanField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     kind = models.CharField(max_length=50)

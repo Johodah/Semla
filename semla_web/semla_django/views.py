@@ -1,6 +1,6 @@
-from django.http import HttpResponse
-
+from django.shortcuts import render
+from .models import Semla
 
 def home(request):
-    return HttpResponse("Hello, Django")
-# Create your views here.
+    semlor = Semla.objects.all()
+    return render(request, 'semla_django/home.html', {'semlor': semlor})
