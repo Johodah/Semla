@@ -1,127 +1,51 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Semlor i Sverige</title>
-    <style>
-        :root {
-            --bg-color: #f5f5f5;
-            --card-bg: white;
-            --text-color: #333;
-            --border-color: #ddd;
-            --shadow-color: rgba(0,0,0,0.1);
-        }
+{% extends 'semla_django/base.html' %}
 
-        [data-theme="dark"] {
-            --bg-color: #1a1a1a;
-            --card-bg: #2d2d2d;
-            --text-color: #fff;
-            --border-color: #404040;
-            --shadow-color: rgba(0,0,0,0.3);
-        }
-        body {
-            background-color: var(--bg-color);
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            color: var(--text-color);
-            transition: all 0.3s ease;
-        }
+{% block title %}Semlor i Sverige{% endblock %}
 
-        .semla-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+{% block extra_css %}
+    .semla-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 
-        .semla-card {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-        }
+    .semla-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 2px 5px var(--shadow-color);
+        transition: transform 0.2s;
+    }
 
-        .semla-card:hover {
-            transform: translateY(-5px);
-        }
+    .semla-card:hover {
+        transform: translateY(-5px);
+    }
 
-        .semla-card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
+    .semla-card img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
 
-        .semla-card h2 {
-            margin: 10px 0;
-            color: #333;
-            font-size: 1.2em;
-        }
+    .semla-card h2 {
+        margin: 10px 0;
+        color: var(--text-color);
+        font-size: 1.2em;
+    }
 
-        .semla-card p {
-            margin: 5px 0;
-            color: #666;
-        }
+    .semla-card p {
+        margin: 5px 0;
+        color: var(--text-color);
+    }
 
-        .vegan-badge {
-            background-color: #4CAF50;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            display: inline-block;
-            margin: 10px 0;
-            font-size: 0.9em;
-        }
-
-        .rating {
-            color: #FFD700;
-            font-size: 1.2em;
-            margin: 10px 0;
-        }
-
-        .rate-button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-        .rate-button:hover {
-            background-color: #45a049;
-        }
-
-        .messages {
-            max-width: 1200px;
-            margin: 0 auto 20px;
-            padding: 10px;
-        }
-
-        .message {
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .message.error { 
-            background: #ffebee; 
-            color: #c62828;
-        }
-
-        .message.success { 
-            background: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        .top-semlor {
+    .top-semlor {
         display: flex;
         justify-content: center;
         gap: 20px;
@@ -140,6 +64,14 @@
         box-shadow: 0 2px 5px var(--shadow-color);
         transition: transform 0.2s;
         width: 300px;
+    }
+
+    .top-semla-card img {
+        width: 100%;
+        height: 200px;  /* Smaller height for top list images */
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 15px;
     }
 
     .medal {
@@ -163,6 +95,37 @@
     .silver { background: linear-gradient(45deg, #C0C0C0, #A9A9A9); }
     .bronze { background: linear-gradient(45deg, #CD7F32, #8B4513); }
 
+    .vegan-badge {
+        background-color: #4CAF50;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        display: inline-block;
+        margin: 10px 0;
+        font-size: 0.9em;
+    }
+
+    .rating {
+        color: #FFD700;
+        font-size: 1.2em;
+        margin: 10px 0;
+    }
+
+    .rate-button {
+        display: inline-block;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        margin-top: 10px;
+        transition: background-color 0.2s;
+    }
+
+    .rate-button:hover {
+        background-color: #45a049;
+    }
+
     @media (max-width: 768px) {
         .top-semlor {
             flex-direction: column;
@@ -170,15 +133,14 @@
         }
     }
 
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-        }
-        </style>
-</head>
-<body>
-    <button class="theme-switch" onclick="toggleTheme()">🌓 Toggle Theme</button>
+    h1 {
+        text-align: center;
+        color: var(--text-color);
+        margin-bottom: 30px;
+    }
+{% endblock %}
+
+{% block content %}
     {% if messages %}
     <div class="messages">
         {% for message in messages %}
@@ -190,26 +152,27 @@
     {% endif %}
 
     <h1>Topplista - Bästa Semlorna</h1>
-<div class="top-semlor">
-    {% for semla in top_semlor %}
-        <div class="top-semla-card">
-            <div class="medal {% if forloop.counter == 1 %}gold{% elif forloop.counter == 2 %}silver{% else %}bronze{% endif %}">
-                {{ forloop.counter }}
+    <div class="top-semlor">
+        {% for semla in top_semlor %}
+            <div class="top-semla-card">
+                <div class="medal {% if forloop.counter == 1 %}gold{% elif forloop.counter == 2 %}silver{% else %}bronze{% endif %}">
+                    {{ forloop.counter }}
+                </div>
+                <img src="{{ semla.picture.url }}" alt="{{ semla.bakery }}">
+                <h2>{{ semla.bakery }}</h2>
+                <p>{{ semla.city }}</p>
+                <div class="rating">★ {{ semla.avg_rating|floatformat:1 }}/5</div>
+                <p>{{ semla.price }} kr</p>
+                <p>{{ semla.kind }}</p>
+                {% if semla.vegan %}
+                    <span class="vegan-badge">Vegansk</span>
+                {% endif %}
+                <br>
+                <a href="{% url 'rate_semla' semla.id %}" class="rate-button">Betygsätt</a>
             </div>
-            <img src="{{ semla.picture.url }}" alt="{{ semla.bakery }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;">
-            <h2>{{ semla.bakery }}</h2>
-            <p>{{ semla.city }}</p>
-            <div class="rating">★ {{ semla.avg_rating|floatformat:1 }}/5</div>
-            <p>{{ semla.price }} kr</p>
-            <p>{{ semla.kind }}</p>
-            {% if semla.vegan %}
-                <span class="vegan-badge">Vegansk</span>
-            {% endif %}
-            <br>
-            <a href="{% url 'rate_semla' semla.id %}" class="rate-button">Betygsätt</a>
-        </div>
-    {% endfor %}
-</div>
+        {% endfor %}
+    </div>
+
     <h1>Alla Semlor</h1>
     <div class="semla-grid">
         {% for semla in all_semlor %}
@@ -228,23 +191,4 @@
             </div>
         {% endfor %}
     </div>
-    <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            
-            if (currentTheme === 'dark') {
-                html.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'light');
-            } else {
-                html.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-    </script>
-</body>
-</html>
+{% endblock %}
