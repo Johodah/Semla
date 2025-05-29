@@ -3,11 +3,28 @@
 <head>
     <title>Semlor i Sverige</title>
     <style>
+        :root {
+            --bg-color: #f5f5f5;
+            --card-bg: white;
+            --text-color: #333;
+            --border-color: #ddd;
+            --shadow-color: rgba(0,0,0,0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-color: #fff;
+            --border-color: #404040;
+            --shadow-color: rgba(0,0,0,0.3);
+        }
         body {
-            background-color: #f5f5f5;
+            background-color: var(--bg-color);
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
+            color: var(--text-color);
+            transition: all 0.3s ease;
         }
 
         .semla-grid {
@@ -114,15 +131,15 @@
     }
 
     .top-semla-card {
-        background: white;
-        border: 1px solid #ddd;
+        position: relative;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
         border-radius: 12px;
         padding: 15px;
         text-align: center;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 5px var(--shadow-color);
         transition: transform 0.2s;
         width: 300px;
-        position: relative;
     }
 
     .medal {
@@ -139,6 +156,7 @@
         font-weight: bold;
         font-size: 1.2em;
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        z-index: 1;
     }
 
     .gold { background: linear-gradient(45deg, #FFD700, #FFA500); }
@@ -160,6 +178,7 @@
         </style>
 </head>
 <body>
+    <button class="theme-switch" onclick="toggleTheme()">🌓 Toggle Theme</button>
     {% if messages %}
     <div class="messages">
         {% for message in messages %}
@@ -191,7 +210,6 @@
         </div>
     {% endfor %}
 </div>
-
     <h1>Alla Semlor</h1>
     <div class="semla-grid">
         {% for semla in all_semlor %}
@@ -210,5 +228,23 @@
             </div>
         {% endfor %}
     </div>
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            
+            if (currentTheme === 'dark') {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </body>
 </html>
