@@ -29,12 +29,7 @@ class Rating(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=['ip_address', 'user_agent', 'semla'],
-                name='unique_rating_per_semla'
-            )
-        ]
+        pass
 
     @classmethod
     def can_rate(cls, ip_address, user_agent):

@@ -1,6 +1,6 @@
 import csv
 from django.core.management.base import BaseCommand
-from semla_web.semla_django.models import Semla
+from semla_django.models import Semla
 
 
 class Command(BaseCommand):
