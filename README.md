@@ -75,8 +75,12 @@ Semla/
   - Price
   - Type of semla
   - Vegan options
+
 - Image for each semla
-- Responsive design for various screen sizes (not phone adapted yet)
+- Responsive design for various screen sizes
+- Rating system implementation and ip-adress limit, maximum 5 rankings per day and IP
+- The page will show the top 3 in ranking before all are shown
+- Comment functionality (only saved in db, not viewed afterwards)
 
 ## Technology Stack
 
@@ -87,11 +91,9 @@ Semla/
 
 ## Future Enhancements
 
-- Rating system implementation and ip-adress limit
-- Phone size adaption
-- The page will show the top 3 in ranking before all are shown
-- Comment functionality
 - Search and filter options
+- Light/Dark mode
+- View comments/reviews
 
 ## Contributing
 
@@ -100,7 +102,3 @@ Semla/
 3. Commit your changes
 4. Push to the branch
 5. Create a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
